@@ -1,88 +1,81 @@
-import IJobData from "@/interfaces/IJobData";
-import React, {useState} from "react";
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { MdFavorite } from 'react-icons/md';
-import {useRouter} from "next/router";
-import AppHeader from "@/components/header";
+import { useRouter } from 'next/router';
+import AppHeader from '@/components/appHeader';
+import { toggleLikedJob } from '@/modules/like';
+import useSWR from 'swr';
+import { detailFetcher } from '@/modules/requests';
+
 const JobPage = () => {
-  const jobs1: IJobData[] = [
-    {employer_name: 'John',
-      job_id: 1,
-      job_description: 'John',
-      job_image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-      job_max_salary: 100,
-      job_city: 'San Francisco',
-      job_min_salary: 100,
-      job_title: 'Prog',
-      job_is_remote: true},
-    {employer_name: 'John2',
-      job_description: 'John2',
-      job_image: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png',
-      job_id: 2 ,
-      job_max_salary: 400,
-      job_city: 'New York',
-      job_min_salary: 100,
-      job_title: 'Accounter',
-      job_is_remote: false},
-  ];
-
   const router = useRouter();
-  if (!router.query.jobId)
-      return <div></div>
-  const {
-    job_description,
-    job_city,
-    job_title,
-    job_min_salary,
-    job_max_salary,
-    job_is_remote,
-    job_image,
-    employer_name} = jobs1.filter((job)=>{
-      if (router.query.jobId) return job.job_id == +router.query.jobId})[0];
-
   const [isLiked, setIsLiked] = useState(false);
+  const [userId, setUserId] = useState<string | undefined>('');
+  // setting initial state for job card
+  useEffect(() => {
+    if (router.query.jobId) setUserId(router.query.jobId.toString());
+  }, []);
+  const { data } = useSWR(userId ? userId : null, detailFetcher);
+  if (!data) return;
+  const {
+    jobCity,
+    applyLink,
+    jobTitle,
+    jobDescription,
+    jobImage,
+    jobIsRemote,
+    jobMinSalary,
+    jobMaxSalary,
+    employerName
+  } = data;
   const handleLike = () => {
-    setIsLiked((liked)=> !liked);
+    if (data) {
+      setIsLiked((liked) => !liked);
+      toggleLikedJob(data, isLiked);
+    }
   };
-
   return (
-    <div className="bg-white shadow-md rounded h-screen flex flex-col  items-center relative">
+    <div className="shadow-md rounded min-h-screen flex flex-col  items-center relative">
       <AppHeader />
-      <div className="shadow-blue-900 shadow-2xl p-10 w-3/6 px-20">
-        <div className="flex justify-between">
+      <div className="shadow-blue-900 bg-white shadow-2xl p-10 w-3/6 px-20">
+        <div className="flex justify-between items-center">
 
           <div className="w-42 m-4 ml-0">
-            <h2 className="text-3xl font-bold">{job_title}</h2>
-            <p className="text-gray-500 text-2xl">{employer_name}</p>
+            <h3 className="text-3xl font-bold">{jobTitle}</h3>
+            <p className="text-gray-500 text-2xl">{employerName}</p>
+
           </div>
-          <Image
-            src={job_image}
-            alt={job_title}
-            width={200}
-            height={200}
-            className="rounded"
+          {jobImage && <Image
+            src={jobImage}
+            alt={jobTitle}
+            width={32}
+            height={32}
+            className="rounded w-16 aspect-square h-16 block"
+          />}
+        </div>
+        <button
+          className={`mr-2 flex items-center text-xl ${isLiked ? 'text-blue-300' : ''}`}
+          onClick={handleLike}
+        >
+          <MdFavorite
+            className={`text-3xl mr-3 duration-300 ${isLiked ? 'text-blue-300' : 'text-gray-500'}`}
           />
-        </div>
-          <button
-            className={`mr-2 flex items-center text-xl ${isLiked ? 'text-blue-300' : ''}`}
-            onClick={handleLike}
-          >
-            <MdFavorite
-              className={`text-gray-500 text-3xl mr-3 duration-300 ${isLiked ? 'text-blue-300' : ''}`}
-            />
-            {isLiked ? 'Liked' : 'Like'}
-          </button>
-        <div className="mt-4">
-          <p className="text-gray-500 text-xl">City: {job_city}</p>
+          {isLiked ? 'Liked' : 'Like'}
+        </button>
+        <div className="my-4">
+          <p className="text-gray-500 text-xl">City: {jobCity ? jobCity : 'No information'}</p>
+          {jobMinSalary && <p className="text-gray-500 text-xl">
+            Salary: {jobMinSalary == jobMaxSalary ? `${jobMinSalary}$` : `${jobMinSalary} - ${jobMaxSalary}$`}
+          </p>}
           <p className="text-gray-500 text-xl">
-            Salary: {job_min_salary == job_max_salary ? `${job_min_salary}$` : `${job_min_salary} - ${job_max_salary}$`}
-          </p>
-          <p className="text-gray-500 text-xl">
-            Remote: {job_is_remote ? 'Yes' : 'No'}
+            Remote: {jobIsRemote ? 'Yes' : 'No'}
           </p>
         </div>
+        {/*Link in new tab*/}
+        {applyLink && <a target="_blank" rel="noopener noreferrer" className="p-2 px-8 bg-blue-500 rounded-xl
+             hover:bg-blue-400 text-white decoration-0" href={applyLink}>Apply</a>}
         <div className="mt-4">
-          <p className="text-gray-500 break-all">{job_description}</p>
+          <p className="text-gray-500 break-all">{jobDescription}</p>
         </div>
         <div className="flex justify-between mt-4">
 
@@ -90,5 +83,5 @@ const JobPage = () => {
       </div>
     </div>
   );
-}
+};
 export default JobPage;

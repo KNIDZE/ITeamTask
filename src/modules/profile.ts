@@ -1,4 +1,4 @@
-import * as Yup from "yup";
+import * as Yup from 'yup';
 
 export const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -12,10 +12,10 @@ export const SignupSchema = Yup.object().shape({
     .required('Required'),
   about: Yup.string()
     .required('Required'),
-  desiredPosition: Yup.string().required('Required'),
+  desiredPosition: Yup.string().required('Required')
 });
 
 
 export const logOut = () => {
-  localStorage.clear()
-}
+  localStorage.clear();
+};
