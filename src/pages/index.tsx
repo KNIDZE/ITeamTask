@@ -10,7 +10,7 @@ import Loader from '@/components/loader';
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [shouldFetch, setShouldFetch] = useState(false);
-  const { data } = useSWR(shouldFetch ? searchTerm : null, listJobsFetcher);
+  const { data, isLoading } = useSWR(shouldFetch ? searchTerm : null, listJobsFetcher);
   const handleSearch = () => {
     setShouldFetch(true);
   };
@@ -41,6 +41,7 @@ const Home = () => {
             </button>
           </div>
           {data && <JobsGrid jobs={data} />}
+          {isLoading && <Loader />}
         </div>
       </div>
     </Suspense>
