@@ -32,7 +32,7 @@ const JobCard = ({ job }: { job: IJobData }) => {
       <div className="flex justify-between items-center">
         <Link href={`/job-details/${job.jobId}`} className="bg-black rounded-md text-white px-3 py-1">Details</Link>
         {jobMinSalary && <div className="font-semibold">
-          Salary: {jobMinSalary == jobMaxSalary ? `${jobMinSalary}$` : `${jobMinSalary} - ${jobMaxSalary}$`}
+          Salary: {jobMinSalary === jobMaxSalary ? `${jobMinSalary}$` : `${jobMinSalary} - ${jobMaxSalary}$`}
         </div>}
 
       </div>

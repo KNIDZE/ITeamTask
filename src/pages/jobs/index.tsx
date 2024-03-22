@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppHeader from '@/components/appHeader';
 import JobsGrid from '@/components/jobsGrid';
 import useSWR from 'swr';
@@ -11,17 +11,20 @@ const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [shouldFetch, setShouldFetch] = useState(false);
   const { data, isLoading } = useSWR(shouldFetch ? searchTerm : null, listJobsFetcher);
-  useEffect(() => {
-    const userString = localStorage.getItem('user');
-    if (userString !== null) {
-      const user: IAccount = JSON.parse(userString);
-      setSearchTerm(user.about + ' ' + user.desiredPosition);
-      handleSearch();
-    }
-  }, []);
+
   const handleSearch = () => {
     setShouldFetch(true);
   };
+
+  useEffect(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      const user: IAccount = JSON.parse(userString);
+      setSearchTerm(`${user.about}' '${user.desiredPosition}`);
+      handleSearch();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen">
       <AppHeader />
@@ -36,7 +39,7 @@ const Jobs = () => {
               setSearchTerm(e.target.value);
             }}
           />
-          <button
+          <button type="button"
             className=" bg-blue-500 hover:bg-blue-400 active:bg-white
              aspect-square flex justify-center items-center rounded-xl ml-4 duration-300 p-2 h-full">
             <MdSearch className="text-3xl" onClick={handleSearch} />

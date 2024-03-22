@@ -1,6 +1,6 @@
 import FormInput from "@/components/formInput";
 import React from "react";
-import {FormikErrors, FormikTouched, FormikValues} from "formik";
+import {FormikErrors, FormikTouched} from "formik";
 import IRegistrationValues from "@/interfaces/IRegistrationErrors";
 
 const FunctionalRegInputs = (props:

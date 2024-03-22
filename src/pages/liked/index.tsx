@@ -25,7 +25,7 @@ const Liked = () => {
                   setLikedJobs(getLikedJobs());
                 }} />
             </div>) :
-          <p className="absolute left-1/2 -translate-x-1/2">There aren't liked jobs</p>}
+          <p className="absolute left-1/2 -translate-x-1/2"> There aren&apos;t liked jobs</p>}
       </div>
     </div>
   );

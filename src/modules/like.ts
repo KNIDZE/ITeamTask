@@ -24,7 +24,7 @@ export const isJobInStorage = (jobData: IJobData): boolean => {
   }
   const likedList: IJobData[] = JSON.parse(likedData);
   // find returns boolean or undefined, so !! like transform to boolean
-  return !!likedList.find((item) => item.jobId == jobData.jobId);
+  return !!likedList.find((item) => item.jobId === jobData.jobId);
 };
 
 export const getLikedJobs = () => {

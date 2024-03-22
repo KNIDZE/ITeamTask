@@ -1,18 +1,18 @@
-import api from '../api/index';
+
 import { AxiosResponse } from 'axios';
 import IGetResponse from '@/interfaces/IGetResponse';
 import IJobData from '@/interfaces/IJobData';
+import api from '../api/index';
 
 export async function listJobsFetcher(searchTerm: string): Promise<IJobData[] | undefined> {
+  let result;
   try {
     const response: AxiosResponse<IGetResponse> = await api.get('/search', {
       method: 'GET',
       params: { query: searchTerm }
     });
-    console.log(response.data);
-    return response.data.data.map((jobData): IJobData => {
-      return {
-        employerName: jobData.employer_name,
+    result = response.data.data.map((jobData): IJobData =>
+        ({employerName: jobData.employer_name,
         jobTitle: jobData.job_title,
         jobId: jobData.job_id,
         jobImage: jobData.employer_logo,
@@ -22,14 +22,17 @@ export async function listJobsFetcher(searchTerm: string): Promise<IJobData[] | 
         jobMinSalary: jobData.job_min_salary,
         jobMaxSalary: jobData.job_max_salary,
         applyLink: jobData.job_apply_link,
-      };
-    });
+      })
+    );
   } catch (e) {
+    /* eslint-disable-next-line no-console */
     console.log('Error while getting response: ', e);
   }
+  return result
 }
 
 export async function detailFetcher(id: string): Promise<IJobData | undefined> {
+  let result;
   try {
     const response: AxiosResponse<IGetResponse> = await api.get('/job-details', {
       method: 'GET',
@@ -38,8 +41,8 @@ export async function detailFetcher(id: string): Promise<IJobData | undefined> {
         extended_publisher_details: false
       }
     });
-    return response.data.data.map((jobData): IJobData => {
-      return {
+    result = response.data.data.map((jobData): IJobData =>
+      ({
         employerName: jobData.employer_name,
         jobTitle: jobData.job_title,
         jobId: jobData.job_id,
@@ -50,9 +53,11 @@ export async function detailFetcher(id: string): Promise<IJobData | undefined> {
         jobMinSalary: jobData.job_min_salary,
         jobMaxSalary: jobData.job_max_salary,
         applyLink: jobData.job_apply_link,
-      };
-    })[0];
+      })
+    )[0];
   } catch (e) {
+    /* eslint-disable-next-line no-console */
     console.log('Error while getting response: ', e);
   }
+  return result;
 }

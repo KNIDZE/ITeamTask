@@ -55,7 +55,7 @@ const JobPage = () => {
             className="rounded w-16 aspect-square h-16 block"
           />}
         </div>
-        <button
+        <button type="button"
           className={`mr-2 flex items-center text-xl ${isLiked ? 'text-blue-300' : ''}`}
           onClick={handleLike}
         >
@@ -67,20 +67,17 @@ const JobPage = () => {
         <div className="my-4">
           <p className="text-gray-500 text-xl">City: {jobCity ? jobCity : 'No information'}</p>
           {jobMinSalary && <p className="text-gray-500 text-xl">
-            Salary: {jobMinSalary == jobMaxSalary ? `${jobMinSalary}$` : `${jobMinSalary} - ${jobMaxSalary}$`}
+            Salary: {jobMinSalary === jobMaxSalary ? `${jobMinSalary}$` : `${jobMinSalary} - ${jobMaxSalary}$`}
           </p>}
           <p className="text-gray-500 text-xl">
             Remote: {jobIsRemote ? 'Yes' : 'No'}
           </p>
         </div>
-        {/*Link in new tab*/}
+        {/* Link in new tab */}
         {applyLink && <a target="_blank" rel="noopener noreferrer" className="p-2 px-8 bg-blue-500 rounded-xl
              hover:bg-blue-400 text-white decoration-0" href={applyLink}>Apply</a>}
         <div className="mt-4">
           <p className="text-gray-500 break-all">{jobDescription}</p>
-        </div>
-        <div className="flex justify-between mt-4">
-
         </div>
       </div>
     </div>
