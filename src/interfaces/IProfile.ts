@@ -1,4 +1,4 @@
-export default interface IAccount{
+export default interface IProfile{
   login: string;
   password: string;
   name: string;

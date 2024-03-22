@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import IAccount from '@/interfaces/IAccount';
 import AppHeader from '@/components/appHeader';
+import IProfile from '@/interfaces/IProfile';
 
 const Profile = () => {
-  const [user, setUser] = useState<IAccount>();
+  const [user, setUser] = useState<IProfile>();
   const router = useRouter();
   useEffect(() => {
     const userString = localStorage.getItem('user');

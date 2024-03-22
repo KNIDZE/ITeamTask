@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import AppHeader from '@/components/appHeader';
 import JobsGrid from '@/components/jobsGrid';
 import useSWR from 'swr';
-import IAccount from '@/interfaces/IAccount';
 import { MdSearch } from 'react-icons/md';
 import { listJobsFetcher } from '@/modules/requests';
 import Loader from '@/components/loader';
+import IProfile from '@/interfaces/IProfile';
 
 const Jobs = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -19,7 +19,7 @@ const Jobs = () => {
   useEffect(() => {
     const userString = localStorage.getItem('user');
     if (userString) {
-      const user: IAccount = JSON.parse(userString);
+      const user: IProfile = JSON.parse(userString);
       setSearchTerm(`${user.about}' '${user.desiredPosition}`);
       handleSearch();
     }
