@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import AppHeader from '@/components/appHeader';
 import useSWR from 'swr';
 import { MdSearch } from 'react-icons/md';
 import JobsGrid from '@/components/jobsGrid';
 import { listJobsFetcher } from '@/modules/requests';
+import Loader from '@/components/loader';
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
     setShouldFetch(true);
   };
   return (
+    <Suspense  fallback={<Loader />}>
     <div className="min-h-screen flex flex-col">
       <AppHeader />
       <div className="flex flex-col justify-center items-center mt-8">
@@ -41,6 +43,7 @@ const Home = () => {
         {data && <JobsGrid jobs={data} />}
       </div>
     </div>
+    </Suspense>
   );
 };
 

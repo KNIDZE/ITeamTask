@@ -6,6 +6,7 @@ import AppHeader from '@/components/appHeader';
 import { toggleLikedJob } from '@/modules/like';
 import useSWR from 'swr';
 import { detailFetcher } from '@/modules/requests';
+import Loader from '@/components/loader';
 
 const JobPage = () => {
   const router = useRouter();
@@ -15,8 +16,8 @@ const JobPage = () => {
   useEffect(() => {
     if (router.query.jobId) setUserId(router.query.jobId.toString());
   }, []);
-  const { data } = useSWR(userId ? userId : null, detailFetcher);
-  if (!data) return;
+  const { data, isLoading } = useSWR(userId ? userId : null, detailFetcher);
+  if (!data || isLoading) return <Loader/>;
   const {
     jobCity,
     applyLink,
@@ -34,6 +35,7 @@ const JobPage = () => {
       toggleLikedJob(data, isLiked);
     }
   };
+
   return (
     <div className="shadow-md rounded min-h-screen flex flex-col  items-center relative">
       <AppHeader />

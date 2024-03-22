@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import AppHeader from '@/components/appHeader';
 import JobsGrid from '@/components/jobsGrid';
 import useSWR from 'swr';
@@ -43,7 +43,7 @@ const Jobs = () => {
           </button>
         </div>
         {data && <JobsGrid jobs={data} />}
-        {isLoading && !data && <Loader />}
+          {isLoading && <Loader />}
       </div>
     </div>
   );

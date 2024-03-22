@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://jsearch.p.rapidapi.com',
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
-    'X-RapidAPI-Key': process.env.API_KEY,
-    'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+    'X-RapidAPI-Key': process.env.NEXT_PUBLIC_API_KEY,
+    'X-RapidAPI-Host': process.env.NEXT_PUBLIC_API_HOST
   }
 });
 export default instance;
