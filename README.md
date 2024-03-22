@@ -1,9 +1,9 @@
 ## Deployed version
-Deployed on Versel version you can find [here](iteam-task.vercel.app)
+Deployed on Versel version you can find [here](https://iteam-task.vercel.app/)
 
 ## App description
 
-Welcome to our job search web application built with Next.js! Our application aims to simplify the job search process by providing users access to a comprehensive job database through the integration of the "JSearch" API, available at "https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch". This application consists of four main pages:
+Welcome to our job search web application built with Next.js! Our application aims to simplify the job search process by providing users access to a comprehensive job database through the integration of the [JSearch](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch) API. This application consists of four main pages:
 
 Home: This page serves as the landing page where users can initiate their job search. They can enter relevant search criteria to find available job listings.
 
