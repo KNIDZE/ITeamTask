@@ -1,6 +1,6 @@
 
 
-export default interface IFormInput{
+export default interface IFormProps {
   labelText: string;
   name: string;
   type: string;

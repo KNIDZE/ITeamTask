@@ -10,6 +10,11 @@ const Liked = () => {
   useEffect(() => {
     setLikedJobs(getLikedJobs());
   });
+  const handleDelete = (job: IJobData) => {
+    deleteLikedJob(job);
+    const filtered = deleteLikedJob(job);
+    setLikedJobs(filtered);
+  };
   return (
     <div className="flex flex-col  items-center 6 min-h-screen mt-0">
       <AppHeader />
@@ -20,10 +25,7 @@ const Liked = () => {
               <JobCard job={job} />
               <MdDelete
                 className="text-white mx-2 text-2xl hover:cursor-pointer"
-                onClick={() => {
-                  deleteLikedJob(job);
-                  setLikedJobs(getLikedJobs());
-                }} />
+                onClick={() =>handleDelete(job)} />
             </div>) :
           <p className="absolute left-1/2 -translate-x-1/2"> There aren&apos;t liked jobs</p>}
       </div>

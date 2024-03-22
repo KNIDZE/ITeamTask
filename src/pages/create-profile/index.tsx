@@ -1,29 +1,22 @@
 import AppHeader from '@/components/appHeader';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Formik, FormikValues } from 'formik';
-import { SignupSchema } from '@/modules/profile';
+import { registerUser, SignupSchema } from '@/modules/profile';
 import PersonalRegInputs from '@/components/personalRegInputs';
 import FunctionalRegInputs from '@/components/functionalRegInputs';
 import { useRouter } from 'next/router';
 
-const Register = () => {
+const CreateProfile = () => {
   const router = useRouter();
-  const [storage, setStorage] = useState<Storage>();
   useEffect(() => {
-    setStorage(localStorage);
+    // if user already registered - navigate to profile page
+    if (localStorage.getItem('user')){
+      router.push('/profile')
+    }
   }, []);
 
   const submitRegistration = (values: FormikValues) => {
-    if (storage) {
-      storage.setItem('user',
-        JSON.stringify({
-          name: values.name,
-          about: values.about,
-          desiredPosition: values.desiredPosition,
-          email: values.email,
-          password: values.password
-        }));
-    }
+    registerUser(values);
     router.push('/jobs');
   };
 
@@ -55,4 +48,4 @@ const Register = () => {
       </Formik>
     </div>);
 };
-export default Register;
+export default CreateProfile;

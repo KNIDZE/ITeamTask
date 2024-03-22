@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { FormikValues } from 'formik';
 
 export const SignupSchema = Yup.object().shape({
   password: Yup.string()
@@ -18,4 +19,15 @@ export const SignupSchema = Yup.object().shape({
 
 export const logOut = () => {
   localStorage.clear();
+};
+
+export const registerUser = (values: FormikValues) => {
+  localStorage.setItem('user',
+    JSON.stringify({
+      name: values.name,
+      about: values.about,
+      desiredPosition: values.desiredPosition,
+      email: values.email,
+      password: values.password
+    }));
 };

@@ -1,10 +1,10 @@
 import { Field } from 'formik';
 import React from 'react';
-import IFormInput from '@/interfaces/IFormInput';
+import IFormProps from '@/interfaces/IFormProps';
 import FormArea from '@/components/formArea';
 
 
-export default function FormInput(props: IFormInput) {
+export default function FormInput(props: IFormProps) {
   const {
     labelText,
     name, type,
