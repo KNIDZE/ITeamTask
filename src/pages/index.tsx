@@ -10,7 +10,7 @@ import Loader from '@/components/loader';
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [shouldFetch, setShouldFetch] = useState(false);
-  const { data } = useSWR(shouldFetch ? null : searchTerm, listJobsFetcher);
+  const { data } = useSWR(shouldFetch ? searchTerm : null, listJobsFetcher);
   const handleSearch = () => {
     setShouldFetch(true);
   };
