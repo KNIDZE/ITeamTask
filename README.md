@@ -110,7 +110,7 @@ They divided for three parts: like, profile, requests;
   _listJobsFetcher_  - fetcher-function for SWR, and it`s accepts a searchTerm parameter as an argument and
   returns a Promise that resolves to an array of IJobData objects (basically it's list of job proposition) on a successful response.
 
-  _detailFetcher_ accepts an id parameter as an argument and returns a Promise that resolves to a single IJobData object (single job proposition) on a successful response.
+  _detailFetcher_ - accepts an id parameter as an argument and returns a Promise that resolves to a single IJobData object (single job proposition) on a successful response.
 
   Two first functions make use of the api object to send HTTP requests to a server with the help of axios.
   The responses are then transformed to match the required data structure defined in the IJobData interface before being returned.
