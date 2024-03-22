@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import JobCard from '@/components/jobCard';
 import AppHeader from '@/components/appHeader';
 import { MdDelete } from 'react-icons/md';
@@ -7,7 +7,7 @@ import { deleteLikedJob, getLikedJobs } from '@/modules/like';
 
 const Liked = () => {
   const [likedJobs, setLikedJobs] = useState<IJobData[]>([]);
-  useState(() => {
+  useEffect(() => {
     setLikedJobs(getLikedJobs());
   });
   return (
