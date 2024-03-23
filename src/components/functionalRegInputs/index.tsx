@@ -27,7 +27,7 @@ const FunctionalRegInputs = (props:
       />
       <FormInput name="confirmPassword"
                  placeholder="Enter password"
-                 type = "pasword"
+                 type = "password"
                  labelText ="Confirm password:"
                  error={errors.confirmPassword}
                  touched={touched.confirmPassword}
